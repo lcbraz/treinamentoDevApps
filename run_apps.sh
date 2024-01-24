@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir logs 2>/dev/null
+
 pkill -f 'uvicorn api_conexoes:app'
 cd api_conexoes
 uvicorn api_conexoes:app --reload --log-config logging.yaml --port 8002 > ../logs/api_conexoes.log 2>&1 &
