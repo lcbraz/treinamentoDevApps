@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'head.html' %} 
+    <title>Lista de Pagamentos</title>
+  </head>
+  <body>
+
+    {% include 'navbar.html' %} 
+    
+    <section class="section">
+      <div class="container">
+
+        <div class="box">
+
+          <h1 class="title is-5">Lista de Pagamentos</h1>
+
+          {% if not sucesso %}
+          <div class="block">
+            <span class="icon-text">
+              <span class="icon has-text-danger">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+              </span>
+              <span>Erro obtendo pagamentos</span>
+            </span>
+          </div>
+
+          {% else %}
+
+          <div class="block">
+            <a class="is-size-5 has-text-link has-text-weight-bold" href="/cadastro/{{ usuario_id }}">{{ usuario_nome }}</a>
+          </div>
+          
+          {% endif %}
+
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for pag in pagamentos %}
+                <tr>
+                  <td>{{ pag.data_pag.strftime('%d/%m/%Y') }}</td>
+                  <td>{{ 'R${0:.2f}'.format(pag.valor/100) }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </section>
+        
+  </body>
+</html>

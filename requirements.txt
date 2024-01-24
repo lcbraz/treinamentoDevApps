@@ -1,0 +1,9 @@
+gunicorn
+flask
+uvicorn
+fastapi[all]
+SQLAlchemy
+mysqlclient
+ruff
+pyright
+httpx

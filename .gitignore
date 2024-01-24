@@ -1,0 +1,14 @@
+.env
+*.swp
+__pycache__
+.ruff_cache
+labteste
+treinamentogit
+treinamentogit_teste
+.vagrant
+tomcat
+opsapp
+treinamentoDevOps
+pcapps/id_ed25519*
+pcapps/.tmux.conf
+

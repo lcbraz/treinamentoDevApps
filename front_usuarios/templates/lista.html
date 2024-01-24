@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'head.html' %} 
+    <title>Lista Usuários</title>
+  </head>
+  <body>
+
+    {% include 'navbar.html' %} 
+    
+    <section class="section">
+      <div class="container">
+
+        <div class="box">
+
+          <h1 class="title is-5">Lista de Usuários</h1>
+
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Plano</th>
+                  <th>Data cadastro</th>
+                  <th>Pgtos</th>
+                  <th>Conexões</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                  <td><a href="/cadastro/{{ usuario.id }}" title="Nome">{{ usuario.nome }}</a></td>
+                  <td>{{ usuario.plano }}</td>
+                  <td>{{ usuario.data_cadastro.strftime('%d/%m/%Y') }}</td>
+                  <td>
+                    <span class="icon-text">
+                        <a href="/listapag/{{ usuario.id }}" title="Nome">
+                      <span class="icon has-text-info">
+                          <i class="fas fa-brazilian-real-sign pl-2 pr-2" aria-hidden="true"></i>
+                      </span>
+                        </a>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="icon-text">
+                      <a href="/listacon/{{ usuario.id }}" title="Nome">
+                        <span class="icon has-text-primary">
+                          <i class="fas fa-globe pl-2 pr-2" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </section>
+        
+  </body>
+</html>

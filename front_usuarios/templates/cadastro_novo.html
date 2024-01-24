@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'head.html' %} 
+    <title>Cadastro do Usuário</title>
+  </head>
+  <body>
+    
+    {% include 'navbar.html' %} 
+    
+    <section class="section">
+      <div class="container">
+
+        <div class="box">
+        
+          <h1 class="title is-5">Novo Usuário</h1>
+
+
+          {% if not sucesso %}
+          <div class="block">
+            <span class="icon-text">
+              <span class="icon has-text-danger">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+              </span>
+              <span>Erro ao criar o cadastro: {{ error_msg }}</span>
+            </span>
+          </div>
+          {% endif %}
+    
+          <form action="/cadastronovo"  method="post">
+            
+            <div class="field">
+              <label class="label">Nome</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g Manoel da Silva" name="nome" required value="{{ usuario.nome }}">
+              </div>
+            </div>
+            
+            <div class="field">
+              <label class="label">Plano</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g 500M" name="plano" required value="{{ usuario.plano }}">
+              </div>
+            </div>
+
+            <div class="field mt-5">
+              <div class="control">
+                <input class="button is-success" type="submit" value="Salvar">
+              </div>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+    </section>
+    
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'head.html' %} 
+    <title>Cadastro do Usuário</title>
+  </head>
+  <body>
+    
+    {% include 'navbar.html' %} 
+    
+    <section class="section">
+      <div class="container">
+
+        <div class="box">
+        
+          <h1 class="title is-5">Cadastro do Usuário</h1>
+    
+          {% if salvo %}
+          <div class="block">
+            {% if sucesso %}
+            <span class="icon-text">
+              <span class="icon has-text-success">
+                <i class="fas fa-check" aria-hidden="true"></i>
+              </span>
+              <span>Cadastro salvo com sucesso.</span>
+            </span>
+            {% else %}
+            <span class="icon-text">
+              <span class="icon has-text-danger">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+              </span>
+              <span>Erro ao salvar o cadastro: {{ error_msg }}</span>
+            </span>
+            {% endif %}
+          </div>
+          {% endif %}
+          
+          <form action="/cadastro/{{ usuario.id }}"  method="post" id="form-cadastro">
+            
+            <div class="field">
+              <label class="label">Nome</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g Manoel da Silva" name="nome" required value="{{ usuario.nome }}">
+              </div>
+            </div>
+            
+            <div class="field">
+              <label class="label">Plano</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g 500M" name="plano" required value="{{ usuario.plano }}">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Data cadastro</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g 01/02/2024" readonly name="data_cadastro" required value="{{ usuario.data_cadastro.strftime('%d/%m/%Y') }}">
+              </div>
+            </div>
+
+            <div class="field mt-5">
+              <div class="control">
+                <input class="button is-success" type="submit" value="Salvar">
+
+                <input class="button is-danger ml-5" type="button" id="button-apagar" value="Apagar">
+
+              </div>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+    </section>
+    
+    <script>
+      // Apagar cadastro
+      document.getElementById("button-apagar").addEventListener('click', () => {
+        console.log("clicando");
+        form_cadastro = document.getElementById('form-cadastro')
+        form_cadastro.action = "/cadastroapagar/{{ usuario.id }}";
+        form_cadastro.submit();
+      });
+    </script> 
+
+  </body>
+</html>
