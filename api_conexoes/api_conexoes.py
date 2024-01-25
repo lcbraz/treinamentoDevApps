@@ -63,12 +63,14 @@ def get_conexao(conexao_id) -> Conexao:
 def list_conexoes(usuario_id) -> List[Conexao]:
     conexoes = []
     try:
-        with engine_auto.connect() as conn:
-            sql = text("SELECT id, data_inicio, data_fim, bytes FROM conexoes WHERE usuario_id = :usuario_id").\
-                    bindparams(usuario_id=usuario_id)
-            result = conn.execute(sql)
-            for row in result.all():
-                conexoes.append(dict(list(zip(result.keys(), row))))
+        for _ in range(10000):
+            conexoes = []
+            with engine_auto.connect() as conn:
+                sql = text("SELECT id, data_inicio, data_fim, bytes FROM conexoes WHERE usuario_id = :usuario_id").\
+                        bindparams(usuario_id=usuario_id)
+                result = conn.execute(sql)
+                for row in result.all():
+                    conexoes.append(dict(list(zip(result.keys(), row))))
     except (SQLAlchemyError, OperationalError) as error:
         logger.error(error)
         raise HTTPException(status_code=500, detail=str(error))
