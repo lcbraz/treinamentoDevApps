@@ -174,7 +174,7 @@ def write_new_cadastro(request: Request,
     ## Salvar dados ##
     try:
         with engine.connect() as conn:
-            sql = text("INSERT INTO usuarios (nome, plano) VALUES (:nome, :plano) RETURNING id").\
+            sql = text("INSERT INTO usuarios (nome_completo, plano) VALUES (:nome, :plano)").\
                     bindparams(nome=nome, plano=plano)
             result = conn.execute(sql)
             usuario_id = result.one()[0]
