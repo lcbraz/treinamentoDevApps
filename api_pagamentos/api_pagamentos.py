@@ -46,7 +46,7 @@ class ExcResponse(BaseModel):
 # não usar me produção            #
 ###################################
 
-authdb = {'ZGV2b3BzRDNza1QwcA==': 'devops'}
+authdb = {'dGlvcHNEM3NrVDBw': 'tiops'}
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def fake_decode_token(token: str):
