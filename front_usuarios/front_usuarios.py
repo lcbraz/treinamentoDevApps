@@ -12,6 +12,9 @@ import httpx
 
 from database import engine_auto, engine, text, SQLAlchemyError, OperationalError, NoResultFound
 
+# auth api pagamentos
+headers = {"Authorization": "Bearer ZGV2b3BzRDNza1QwcA=="}
+
 
 # TDDO Adicionar contexto
 f = open('logging.yaml', 'r')
@@ -148,7 +151,8 @@ def write_cadastro(usuario_id, request: Request,
 
 @app.get("/cadastronovo", response_class=HTMLResponse)
 def new_cadastro(request: Request):
-    return templates.TemplateResponse(request=request, name="cadastro_novo.html", context={"usuario": {}, "sucesso": True})
+    return templates.TemplateResponse(request=request, name="cadastro_novo.html",
+                                      context={"usuario": {}, "sucesso": True})
 
 
 @app.post("/cadastronovo", response_class=HTMLResponse)
@@ -242,7 +246,8 @@ async def list_pagamentos(usuario_id, request: Request):
             # TODO
             # não roda em parelo (Task?)
             res_usuario = await client.get(f"http://localhost:8000/api/usuario/{usuario_id}")
-            res_pags = await client.get(f"http://localhost:8001/api/pagamentos/{usuario_id}")
+            res_pags = await client.get(f"http://localhost:8001/api/pagamentos/{usuario_id}",
+                                        headers=headers)
             
             if res_usuario.status_code == 200 and res_pags.status_code == 200:
                 usuario_nome = TypeAdapter(Usuario).validate_python(res_usuario.json()).nome
