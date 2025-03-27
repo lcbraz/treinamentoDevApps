@@ -41,7 +41,7 @@ class ConexaoAtualiza(BaseModel):
 class ExcResponse(BaseModel):
     detail: str
 
-@app.get("/api/conexao/{conexao_id}",
+@app.get("/conexao/{conexao_id}",
          responses={404: {"model": ExcResponse}})
 def get_conexao(conexao_id) -> Conexao:
     try:
@@ -59,7 +59,7 @@ def get_conexao(conexao_id) -> Conexao:
         raise HTTPException(status_code=500, detail=str(error))
 
 
-@app.get("/api/conexoes/{usuario_id}")
+@app.get("/conexoes/{usuario_id}")
 def list_conexoes(usuario_id) -> List[Conexao]:
     conexoes = []
     try:
@@ -78,7 +78,7 @@ def list_conexoes(usuario_id) -> List[Conexao]:
     return conexoes
 
 
-@app.post("/api/conexao",
+@app.post("/conexao",
           responses={400: {"model": ExcResponse}})
 def create_conexao(conexao_novo: ConexaoNovo) -> Conexao:
     try:
@@ -96,9 +96,9 @@ def create_conexao(conexao_novo: ConexaoNovo) -> Conexao:
         raise HTTPException(status_code=500, detail=str(error))
 
 
-@app.delete("/api/conexao/{conexao_id}",
+@app.delete("/conexao/{conexao_id}",
             responses={400: {"model": ExcResponse}})
-def delete_usuario(conexao_id) -> Conexao:
+def delete_conexao(conexao_id) -> Conexao:
     try:
         with engine_auto.connect() as conn:
             sql = text("DELETE FROM conexoes WHERE id = :conexao_id \
@@ -115,9 +115,9 @@ def delete_usuario(conexao_id) -> Conexao:
         raise HTTPException(status_code=500, detail=str(error))
 
 
-@app.put("/api/conexao",
+@app.put("/conexao",
          responses={400: {"model": ExcResponse}})
-def update_usuario(conexao_atualiza: ConexaoAtualiza) -> Conexao:
+def update_conexao(conexao_atualiza: ConexaoAtualiza) -> Conexao:
     try:
         with engine_auto.connect() as conn:
             sql = text("UPDATE conexoes SET data_fim = :data_fim, bytes = :bytes WHERE id = :conexao_id").\

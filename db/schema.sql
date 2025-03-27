@@ -1,3 +1,10 @@
+/*!999999\- enable the sandbox mode */
+-- MariaDB dump 10.19  Distrib 10.11.8-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: 127.0.0.1    Database: dbapps
+-- ------------------------------------------------------
+-- Server version	10.11.8-MariaDB-0ubuntu0.24.04.1
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;

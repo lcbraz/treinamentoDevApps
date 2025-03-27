@@ -63,7 +63,7 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         )
     return user
 
-@app.post("/api/token")
+@app.post("/token")
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     hash_check = base64.b64encode(bytes(form_data.username + form_data.password, 'utf-8')).decode('utf-8')
     if hash_check in authdb.keys():
@@ -76,9 +76,9 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
 ###################################
 
 
-@app.get("/api/pagamento/{pag_id}",
+@app.get("/pagamento/{pag_id}",
          responses={404: {"model": ExcResponse}})
-def get_conexao(pag_id, _: Annotated[str, Depends(get_current_user)]) -> Pagamento:
+def get_pagamentos(pag_id, _: Annotated[str, Depends(get_current_user)]) -> Pagamento:
     try:
         with engine_auto.connect() as conn:
             sql = text("SELECT id, data_pag, valor FROM pagamentos WHERE id = :pag_id").\
@@ -94,7 +94,7 @@ def get_conexao(pag_id, _: Annotated[str, Depends(get_current_user)]) -> Pagamen
         raise HTTPException(status_code=500, detail=str(error))
 
 
-@app.get("/api/pagamentos/{usuario_id}")
+@app.get("/pagamentos/{usuario_id}")
 def list_pagamentos(usuario_id, _: Annotated[str, Depends(get_current_user)]) -> List[Pagamento]:
     pagamentos = []
     try:
@@ -113,9 +113,9 @@ def list_pagamentos(usuario_id, _: Annotated[str, Depends(get_current_user)]) ->
     return pagamentos
 
 
-@app.post("/api/pagamento",
+@app.post("/pagamento",
           responses={400: {"model": ExcResponse}})
-def create_conexao(pag_novo: PagamentoNovo, _: Annotated[str, Depends(get_current_user)]) -> Pagamento:
+def create_pagamento(pag_novo: PagamentoNovo, _: Annotated[str, Depends(get_current_user)]) -> Pagamento:
     try:
         with engine_auto.connect() as conn:
             sql = text("INSERT INTO pagamentos (usuario_id, valor) VALUES (:usuario_id, :valor) \
